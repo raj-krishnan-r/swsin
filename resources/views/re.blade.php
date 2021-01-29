@@ -28,8 +28,6 @@
 
 
     <script>
-        var socket=null;
-        var mainOffer = null;
         var recID = null;
         const configuration = {
             'iceServers': [{
@@ -42,17 +40,7 @@
         const constraints = {
             'video': true,
             'audio': true
-        }
-
-
-        async function mediaSanction() {
-            const localStream = await navigator.mediaDevices.getUserMedia(constraints);
-            //console.log('Got Media Stream',stream);
-            localStream.getTracks().forEach(track => {
-                peerConnection.addTrack(track, localStream);
-            });
-        }
-
+        };
         const register = () => {
             socket.emit("register", document.getElementById('regID').value);
             mediaSanction();
@@ -93,22 +81,28 @@
                 alert('Connected');
             }
         });
-
-        }
-
-
-        
+        peerConnection.addEventListener('track', async (event) => {
+            remoteStream.addTrack(event.track, remoteStream);
+        });
         const remoteStream = new MediaStream();
         const remoteVideo = document.getElementById('viewfinder');
         remoteVideo.srcObject = remoteStream;
 
-        peerConnection.addEventListener('track', async (event) => {
-            remoteStream.addTrack(event.track, remoteStream);
-        });
+        }
+        async function mediaSanction() {
+            const localStream = await navigator.mediaDevices.getUserMedia(constraints);
+            //console.log('Got Media Stream',stream);
+            localStream.getTracks().forEach(track => {
+                peerConnection.addTrack(track, localStream);
+            });
+        }
+
+
+     
     </script>
     <script src="https://wesignal.herokuapp.com/socket.io/socket.io.js"></script>
     <script>
-        socket = io('https://wesignal.herokuapp.com/');
+        const socket = io('https://wesignal.herokuapp.com/');
     </script>
 </body>
 

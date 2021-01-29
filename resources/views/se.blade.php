@@ -95,7 +95,6 @@
                     alert('Connected');
                 }
             });
-        }
 
         const remoteStream = new MediaStream();
         const remoteVideo = document.getElementById('viewfinder');
@@ -104,6 +103,8 @@
         peerConnection.addEventListener('track', async (event) => {
             remoteStream.addTrack(event.track, remoteStream);
         });
+        }
+
     </script>
     <script src="https://wesignal.herokuapp.com/socket.io/socket.io.js"></script>
     <script>
