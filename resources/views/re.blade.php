@@ -24,7 +24,7 @@
             Answer ?
         </button>
     </div>
-    <video autoplay id="viewfinder" style="width: 500px; height: 500px; border: 1px solid black;"></video>
+    <video autoplay id="viewfinder" style="width: 900px; height: 1600px; border: 1px solid black;"></video>
 
 
     <script>
