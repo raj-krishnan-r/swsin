@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->publishes([__DIR__.'/../public'=>public_path('vendor/courier'),],'public');
     }
 }
