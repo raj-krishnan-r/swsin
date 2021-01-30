@@ -113,9 +113,16 @@
                 console.log('Candidate');
                 try {
                     await peerConnection.addIceCandidate(package.candidate);
+                    const remoteStream = new MediaStream();
+                    const remoteVideo = document.getElementById('viewfinder');
+                    remoteVideo.srcObject = remoteStream;
+                    peerConnection.addEventListener('track', async (event) => {
+                    remoteStream.addTrack(event.track, remoteStream);
+        });
                 } catch (e) {
                     console.error('Error adding ice candidate', e);
                 }
+                
             });
             peerConnection.addEventListener('connectionstatechange', event => {
                 if (peerConnection.connectionState === 'connected') {
@@ -123,13 +130,7 @@
                 }
             });
 
-        const remoteStream = new MediaStream();
-        const remoteVideo = document.getElementById('viewfinder');
-        remoteVideo.srcObject = remoteStream;
-
-        peerConnection.addEventListener('track', async (event) => {
-            remoteStream.addTrack(event.track, remoteStream);
-        });
+       
         }
 
     </script>
