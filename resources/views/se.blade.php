@@ -80,7 +80,13 @@
             
             
             //console.log('Got Media Stream',stream);
+            const remoteStream = new MediaStream();
+                    const remoteVideo = document.getElementById('viewfinder');
+                    remoteVideo.srcObject = remoteStream;
+                    peerConnection.addEventListener('track', async (event) => {
+                    remoteStream.addTrack(event.track, remoteStream);
           
+        });
         }
 
         async function makeCall() {
@@ -99,7 +105,6 @@
             recipient.id = document.getElementById('recID').value;
             recipient.offer = offer;
             socket.emit('request', recipient);
-            peerConnection.addEventListener('icegatheringstatechange', (event) => {});
             peerConnection.addEventListener('icecandidate', event => {
                 if (event.candidate) {
                     console.log(event.candidate);
@@ -111,20 +116,27 @@
             });
             socket.on('ice-candidate', async (package) => {
                 console.log('Candidate');
+
                 try {
                     await peerConnection.addIceCandidate(package.candidate);
-                    const remoteStream = new MediaStream();
-                    const remoteVideo = document.getElementById('viewfinder');
-                    remoteVideo.srcObject = remoteStream;
-                    peerConnection.addEventListener('track', async (event) => {
-                    remoteStream.addTrack(event.track, remoteStream);
-        });
-                } catch (e) {
+                } catch(e) {
                     console.error('Error adding ice candidate', e);
                 }
-                
             });
-            peerConnection.addEventListener('connectionstatechange', event => {
+            socket.on('ice-candidate', async (package) => {
+                console.log('Candidate');
+                try {
+                    await peerConnection.addIceCandidate(package.candidate);
+                    
+        }
+        catch (e) {
+                    console.error('Error adding ice candidate', e);
+                }
+        
+                }); 
+             
+            
+            peerConnection.addEventListener('connectionstatechange', (event) => {
                 if (peerConnection.connectionState === 'connected') {
                     alert('Connected');
                 }
