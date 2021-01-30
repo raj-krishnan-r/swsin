@@ -85,12 +85,8 @@
                     alert('Connected');
                 }
             });
-            peerConnection.addEventListener('track', async (event) => {
-                remoteStream.addTrack(event.track, remoteStream);
-            });
-            const remoteStream = new MediaStream();
-            const remoteVideo = document.getElementById('viewfinder');
-            remoteVideo.srcObject = remoteStream;
+          
+        
 
         }
         async function mediaSanction() {
@@ -121,7 +117,12 @@
             
             
             //console.log('Got Media Stream',stream);
-          
+            const remoteStream = new MediaStream();
+            const remoteVideo = document.getElementById('viewfinder');
+            remoteVideo.srcObject = remoteStream;
+            peerConnection.addEventListener('track', async (event) => {
+                remoteStream.addTrack(event.track, remoteStream);
+            });
         }
     </script>
     <script src="https://wesignal.herokuapp.com/socket.io/socket.io.js"></script>
