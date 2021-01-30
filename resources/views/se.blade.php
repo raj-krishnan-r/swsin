@@ -52,13 +52,35 @@
             'audio': true
         }
 
-
         async function mediaSanction() {
-            const localStream = await navigator.mediaDevices.getUserMedia(constraints);
-            //console.log('Got Media Stream',stream);
+            navigator.mediaDevices.enumerateDevices().then(async(devices)=>{
+                let audio = false;
+                let video=false;
+                devices.forEach((device,i)=>{
+                    if(device.kind=="audioinput")
+                    {
+                        audio=true;
+                    }
+                    else if(device.kind=="videoinput")
+                    {
+                        video=true;
+                    }
+                });
+                try{
+            const localStream = await navigator.mediaDevices.getUserMedia({'audio':audio,'video':video});
             localStream.getTracks().forEach(track => {
                 peerConnection.addTrack(track, localStream);
             });
+            }
+            catch(error){
+
+                console.log(error);
+            }
+            });
+            
+            
+            //console.log('Got Media Stream',stream);
+          
         }
 
         async function makeCall() {
