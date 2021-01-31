@@ -107,7 +107,6 @@
             socket.emit('request', recipient);
             peerConnection.addEventListener('icecandidate', event => {
                 if (event.candidate) {
-                    console.log(event.candidate);
                     let package = new Object();
                     package.recID = document.getElementById('recID').value;
                     package.candidate = event.candidate;

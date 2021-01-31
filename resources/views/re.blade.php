@@ -66,7 +66,7 @@
                 if (event.candidate) {
                     console.log(event.candidate);
                     let package = new Object();
-                    package.recID = document.getElementById('recID').value;
+                    package.recID = document.getElementById('regID').value;
                     package.candidate = event.candidate;
                     socket.emit('ice-candidate', package);
                 }
