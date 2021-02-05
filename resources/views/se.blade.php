@@ -18,15 +18,21 @@
             <h2>Sender</h2>
         </div>
         <div class="optionSlot">
-        <input type="number" id="regID" placeholder="Type a number" />
+            <div class="form-group">
+        <input type="number" id="regID" placeholder="Choose a number" />
             <button class="btn btn-primary" onclick="register()">Register</button>
-            <input type="number" id="recID" />
-            <button class="btn btn-primary" onclick="makeCall()">Make</button>
-            <div id="offer" style="display: none;">There's a call.</div>
         </div>
+        <div class="form-group">
+
+            <input type="number" id="recID" placeholder="Recepient Number" />
+            <button class="btn btn-primary" onclick="makeCall()">Make</button>
+        </div>
+            </div>
+            <div id="offer" style="display: none;">There's a call.</div>
         <video class="videoSlot" autoplay id="viewfinder"></video>
 
     </div>
+        <video id="viewfinder"></video>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -67,6 +73,9 @@
                 });
                 try{
             const localStream = await navigator.mediaDevices.getUserMedia({'audio':audio,'video':video});
+            //Setting localStream to viewFinder
+            document.getElementById('viewfinder').srcObject=localStream;
+            //Setting localStream to remote river
             localStream.getTracks().forEach(track => {
                 peerConnection.addTrack(track, localStream);
             });
