@@ -125,9 +125,9 @@
             });
         }
     </script>
-    <script src="https://wesignal.herokuapp.comsocket.io/socket.io.js"></script>
+    <script src="https://wesignal.herokuapp.com/socket.io/socket.io.js"></script>
     <script>
-        const socket = io('https://wesignal.herokuapp.com');
+        const socket = io('https://wesignal.herokuapp.com/');
     </script>
 </body>
 
