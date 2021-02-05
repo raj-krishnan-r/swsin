@@ -145,9 +145,9 @@
         }
 
     </script>
-    <script src="https://wesignal.herokuapp.com/socket.io/socket.io.js"></script>
+    <script src="https://ugly-badger-23.loca.lt/socket.io/socket.io.js"></script>
     <script>
-        socket = io('https://wesignal.herokuapp.com/');
+        socket = io('https://ugly-badger-23.loca.lt/');
     </script>
 </body>
 

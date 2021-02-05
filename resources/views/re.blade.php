@@ -32,7 +32,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script>
-        var recID = null;
+        var recID = 0;
         const configuration = {
             'iceServers': [{
                 'urls': 'turn:65.0.215.67:3478',
@@ -51,7 +51,7 @@
             socket.on('offer', async (offerPack) => {
                 //console.log(offerPack);
                 document.getElementById('offer').style.display = "block";
-                mainOffer = offer;
+                recID=offerPack.myID;
                 console.log('Remote Description Set');
                 peerConnection.setRemoteDescription(new RTCSessionDescription(offerPack.offer));
                 const answer = await peerConnection.createAnswer();
@@ -66,7 +66,7 @@
                 if (event.candidate) {
                     console.log(event.candidate);
                     let package = new Object();
-                    package.recID = document.getElementById('regID').value;
+                    package.recID = recID;
                     package.candidate = event.candidate;
                     socket.emit('ice-candidate', package);
                 }
@@ -125,9 +125,9 @@
             });
         }
     </script>
-    <script src="https://wesignal.herokuapp.com/socket.io/socket.io.js"></script>
+    <script src="https://wesignal.herokuapp.comsocket.io/socket.io.js"></script>
     <script>
-        const socket = io('https://wesignal.herokuapp.com/');
+        const socket = io('https://wesignal.herokuapp.com');
     </script>
 </body>
 
