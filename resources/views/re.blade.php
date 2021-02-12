@@ -24,10 +24,10 @@
             </div>
             <div id="offer" style="display: none;">There's a call.</div>
         </div>
-        <video class="videoSlot" autoplay id="viewfinder"></video>
+        <video class="videoSlot" autoplay id="tv"></video>
 
     </div>
-    <video id="viewfinder"></video>
+    <video id="viewfinder" muted autoplay></video>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -109,6 +109,7 @@
                 try{
             const localStream = await navigator.mediaDevices.getUserMedia({'audio':audio,'video':video});
             //Setting localStream to viewFinder
+            console.log(document.getElementById('viewfinder'));
             document.getElementById('viewfinder').srcObject=localStream;
             //Setting localStream to remote river
             localStream.getTracks().forEach(track => {
@@ -124,7 +125,7 @@
             
             //console.log('Got Media Stream',stream);
             const remoteStream = new MediaStream();
-            const remoteVideo = document.getElementById('viewfinder');
+            const remoteVideo = document.getElementById('tv');
             remoteVideo.srcObject = remoteStream;
             peerConnection.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);

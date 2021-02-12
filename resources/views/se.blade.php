@@ -20,7 +20,7 @@
         <div class="optionSlot">
             <div class="form-group">
         <input type="number" id="regID" placeholder="Choose a number" />
-            <button class="btn btn-primary" onclick="register()">Register</button>
+            <button class="btn btn-primary" id="registerButton" onclick="register()">Register</button>
         </div>
         <div class="form-group">
 
@@ -29,7 +29,7 @@
         </div>
             </div>
             <div id="offer" style="display: none;">There's a call.</div>
-        <video class="videoSlot" autoplay id="viewfinder"></video>
+        <video class="videoSlot" autoplay id="tv"></video>
 
     </div>
         <video id="viewfinder"></video>
@@ -42,6 +42,8 @@
         function register() {
             socket.emit("register", document.getElementById('regID').value);
             mediaSanction();
+            document.getElementById('registerButton').addAttribute('disabled','true');
+
         }
         const configuration = {
             'iceServers': [{
@@ -89,7 +91,7 @@
             
             //console.log('Got Media Stream',stream);
             const remoteStream = new MediaStream();
-                    const remoteVideo = document.getElementById('viewfinder');
+                    const remoteVideo = document.getElementById('tv');
                     remoteVideo.srcObject = remoteStream;
                     peerConnection.addEventListener('track', async (event) => {
                     remoteStream.addTrack(event.track, remoteStream);
