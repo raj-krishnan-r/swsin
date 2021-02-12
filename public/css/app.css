@@ -44,4 +44,11 @@
     top: 5%;
     box-shadow: 0px 0px 1px white;
 }
-
+@media only screen and (max-width: 600px)
+{
+    #viewfinder
+    {
+        width: 20vw;
+        height: 16vh;
+    }
+}
